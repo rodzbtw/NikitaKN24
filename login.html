@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        :root {
+            --primary-color: #4C8BF5;
+            --secondary-color: #F6B93B;
+            --accent-color: #A9DFBF;
+            --background-color: #F1F4F9;
+            --text-color: #333;
+            --card-bg: #FFFFFF;
+            --button-hover-color: #FFB142;
+            --header-text-color: #000;
+        }
+        body {
+            background-color: var(--background-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: var(--button-hover-color);
+            transform: scale(1.05);
+        }
+        .form-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease;
+        }
+        .form-container:hover {
+            transform: scale(1.05);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .button:hover {
+            background-color: var(--button-hover-color);
+            transform: scale(1.05);
+        }
+        .form-toggle {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .form-toggle a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .form-toggle a:hover {
+            color: var(--button-hover-color);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<button class="back-button" onclick="window.location.href='index.html'">Назад на головну</button>
+
+<div class="form-container" id="login-form">
+    <h2>Логін</h2>
+    <form action="#" method="POST">
+        <input type="text" class="input-field" placeholder="Електронна пошта" required>
+        <input type="password" class="input-field" placeholder="Пароль" required>
+        <button type="submit" class="button">Увійти</button>
+    </form>
+
+    <div class="form-toggle">
+        <p>Ще не маєш акаунт? <a href="#" onclick="toggleForm('register')">Зареєструватися</a></p>
+    </div>
+</div>
+
+<div class="form-container hidden" id="register-form">
+    <h2>Реєстрація</h2>
+    <form action="#" method="POST">
+        <input type="text" class="input-field" placeholder="Ім'я" required>
+        <input type="email" class="input-field" placeholder="Електронна пошта" required>
+        <input type="password" class="input-field" placeholder="Пароль" required>
+        <input type="password" class="input-field" placeholder="Підтвердження паролю" required>
+        <button type="submit" class="button">Зареєструватися</button>
+    </form>
+
+    <div class="form-toggle">
+        <p>Вже є акаунт? <a href="#" onclick="toggleForm('login')">Увійти</a></p>
+    </div>
+</div>
+
+<script>
+    function toggleForm(form) {
+        if (form === 'register') {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-form').classList.remove('hidden');
+        } else {
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('register-form').classList.add('hidden');
+        }
+    }
+</script>
+
+</body>
+</html>
