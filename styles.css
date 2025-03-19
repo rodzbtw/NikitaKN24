@@ -1,0 +1,230 @@
+:root {
+    --primary-color: #1857ec;
+    --secondary-color: #553D67;
+    --accent-color: #b60f31;
+    --background-color: #EAE8FF;
+    --text-color: #242582;
+    --card-bg: #FFFFFF;
+    --button-hover-color: #3874c3;
+    --header-text-color: #FFFFFF;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main page styles */
+.main-page {
+    text-align: center;
+}
+
+.main-page h1 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.main-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.main-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.main-button:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.05);
+}
+
+/* Login page styles */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.05);
+}
+
+.container {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.social-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    background-color: transparent;
+    font-weight: 500;
+    color: black;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    border: 1px solid #ddd;
+}
+
+.facebook, .apple, .google {
+    border-color: black;
+    color: black;
+}
+
+.social-btn img {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+}
+
+.login-btn, .register-btn, #send-code-btn {
+    background-color: #7a05fb;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.login-btn:hover, .register-btn:hover, #send-code-btn:hover {
+    transform: scale(1.05);
+    background-color: #cb40e0;
+}
+
+.social-btn:hover {
+    background-color: lightgray;
+    border-width: 2px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.toggle-buttons button {
+    width: 48%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-buttons button:hover {
+    background-color: var(--button-hover-color);
+    transform: scale(1.05);
+}
+
+.toggle-buttons button.active {
+    background-color: var(--button-hover-color);
+}
+
+.form-section {
+    display: none;
+    text-align: left;
+}
+
+.form-section.active {
+    display: block;
+}
+
+.password-hints {
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-color);
+    margin-top: 10px;
+}
+
+.password-hints ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.password-hints li::before {
+    content: "- ";
+}
+
+.timer {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-top: 10px;
+}
+
+.login-btn {
+    margin-top: 20px;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
