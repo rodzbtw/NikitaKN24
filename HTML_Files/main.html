@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTSITE</title>
+    <link rel="icon" type="image/png" href="../Icons/icon.svg">
+    <style>
+        :root {
+            --primary-color: #2F2FA2;
+            --secondary-color: #553D67;
+            --accent-color: #F64C72;
+            --background-color: #EAE8FF;
+            --text-color: #242582;
+            --card-bg: #FFFFFF;
+            --hover-effect-color: #F64C72;
+            --header-text-color: #FFFFFF;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; box-sizing: border-box;
+        }
+        header {
+            padding: 20px 0;
+            text-align: center; font-size: 2em;
+            color: var(--header-text-color);
+        }
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .card img { max-width: 100%; border-radius: 8px; }
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+        .button:hover {
+            background-color: var(--hover-effect-color);
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .who-text {
+            flex: 1;
+            text-align: left;
+            padding-right: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(76, 139, 245, 0.2), rgba(246, 185, 59, 0.2));
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .interests-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        .interests-item {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .interests-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .github-text {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-top: 20px;
+        }
+
+
+        footer {
+            background-color: var(--background-color);
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            background-color: var(--primary-color);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        nav a {
+            color: var(--header-text-color);
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 15px;
+        }
+        nav a:hover {
+            color: var(--hover-effect-color);
+        }
+
+        .language-selector {
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer; }
+    </style>
+    <script>
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll("[data-lang]");
+            elements.forEach(el => {
+                el.innerText = translations[lang][el.dataset.lang];
+            });
+            document.documentElement.lang = lang;
+        }
+
+        const translations = {
+            "uk": {
+                "whoAmI": "Хто я?",
+                "interests": "Чим я цікавлюсь?",
+                "contact": "Як зі мною зв'язатися?",
+                "profile": "Ваш профіль"
+            },
+            "ru": {
+                "whoAmI": "Кто я?",
+                "interests": "Чем я интересуюсь?",
+                "contact": "Как со мной связаться?",
+                "profile": "Ваш профиль"
+            }
+        };
+    </script>
+</head>
+<body>
+<header>
+    <div class="language-selector">
+        <span onclick="changeLanguage('uk')">Укр</span> | <span onclick="changeLanguage('ru')">Рус</span>
+    </div>
+    <h1>Мої факти</h1>
+</header>
+
+<nav>
+    <a href="#whoAmI"> Хто я? </a>
+    <a href="#interests">Чим я цікавлюсь? </a>
+    <a href="#contact">Як зі мною зв'язатися?</a>
+</nav>
+
+<main>
+    <section id="whoAmI" class="card">
+        <h2>Хто я?</h2>
+        <p class="who-text">Привіт! Мене звати <strong>Никита</strong>, і я захоплююся веб-дизайном та UX/UI.</p>
+        <p class="who-text">Я люблю створювати красиві інтерфейси та працювати з користувацьким досвідом. Моя мета — створювати унікальні, зручні та естетично привабливі веб-рішення, які відповідають потребам користувачів. Я глибоко занурююся в дослідження, аналізую поведінку користувачів і шукаю найкращі варіанти взаємодії. Крім веб-дизайну, я також цікавлюся програмуванням, новітніми трендами в IT і штучним інтелектом. У вільний час я вдосконалюю свої навички, експериментую з новими технологіями та веду блог про UX/UI-дизайн. Моє кредо — ніколи не зупинятися на досягнутому і завжди рухатися вперед!</p>
+        <img width="960" height="400" src="../Icons/photo.jpg" alt="Моє фото">
+    </section>
+
+    <section id="interests" class="card">
+        <h2>Чим я цікавлюсь?</h2>
+        <p class="who-text">Я захоплююся сучасними технологіями та креативними підходами до дизайну. Мені подобається досліджувати нові тренди у веб-дизайні, експериментувати з колірними палітрами та типографією, а також створювати унікальні анімаційні ефекти для покращення користувацького досвіду. Окрім цього, я активно вивчаю front-end розробку, заглиблюючись у роботу з JavaScript та фреймворками на кшталт React та Vue.js. Моє завдання – зробити інтернет більш зручним, функціональним та візуально привабливим.</p>
+        <div class="interests-list">
+            <div class="interests-item">Веб-дизайн та UI/UX</div>
+            <div class="interests-item">Програмування на JavaScript</div>
+            <div class="interests-item">Глибоке занурення у front-end технології</div>
+            <div class="interests-item">Анімація та інтерактивні елементи</div>
+        </div>
+    </section>
+
+    <section id="contact" class="card">
+        <h2>Як зі мною зв'язатися?</h2>
+        <p class="github-text">Ви можете знайти мене на <a href="https://github.com/rodzbtw/NikitaKN24/tree/TestSite">GitHub</a>.</p>
+    </section>
+</main>
+
+<a href="login.html" class="button">Ваш профіль</a>
+<footer>
+    <p>&copy; 2025 <u>Права захищені</u></p>
+</footer>
+</body>
+</html>
