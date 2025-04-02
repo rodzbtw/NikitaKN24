@@ -5,51 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TESTSITE</title>
     <link rel="icon" type="image/png" href="../Icons/icon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #2F2FA2;
+            --primary-color: rgba(0, 137, 176, 0.9);
             --secondary-color: #553D67;
-            --accent-color: #F64C72;
+            --accent-color: rgba(0, 183, 255, 0.8);
             --background-color: #EAE8FF;
             --text-color: #242582;
             --card-bg: #FFFFFF;
-            --hover-effect-color: #F64C72;
+            --hover-effect-color: rgba(82, 172, 211, 0.55);
             --header-text-color: #FFFFFF;
         }
         html { scroll-behavior: smooth; }
         body {
-            background-color: var(--background-color);
+            background: linear-gradient(135deg, var(--background-color), #d4d1ff);
             color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
         }
+        body {
+            background: url(../Icons/background.jpeg) no-repeat center center fixed;
+            background-size: cover;
+        }
+
         header {
-            padding: 20px 0;
-            text-align: center; font-size: 2em;
+            background: linear-gradient(rgba(47, 47, 162, 0.9), rgba(0, 137, 176, 0.7)),
+            url('https://images.unsplash.com/photo-1557683311-eac922347aa1?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 2em;
             color: var(--header-text-color);
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .language-selector:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        .language-selector span {
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            border-radius: 15px;
+        }
+        .language-selector span:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+        
         main {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 30px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
             margin: 0 auto;
         }
         .card {
-            padding: 20px;
+            padding: 30px;
             background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
-
-
-        .card img { max-width: 100%; border-radius: 8px; }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        .card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        .card:hover h2::after {
+            width: 100%;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover img {
+            transform: scale(1.02);
+        }
         .button {
             background-color: var(--primary-color);
             color: white;
@@ -60,8 +147,8 @@
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
             position: fixed;
             top: 20px;
             right: 20px;
@@ -69,80 +156,170 @@
         }
         .button:hover {
             background-color: var(--hover-effect-color);
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         .who-text {
-            flex: 1;
-            text-align: left;
-            padding-right: 20px;
             font-size: 1.2em;
-            font-weight: bold;
-            color: var(--primary-color);
-            background: linear-gradient(135deg, rgba(76, 139, 245, 0.2), rgba(246, 185, 59, 0.2));
-            padding: 15px;
-            border-radius: 8px;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, rgba(47, 47, 162, 0.05), rgba(246, 76, 114, 0.05));
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            transition: transform 0.3s ease;
+        }
+        .who-text:hover {
+            transform: translateX(5px);
         }
         .interests-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             padding: 20px 0;
         }
         .interests-item {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, #37869C, #7BB3C6);
             color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 15px;
             font-size: 1.1em;
             font-weight: bold;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
+
         .interests-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #7BB3C6, #37869C);
         }
+
         .github-text {
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: bold;
             color: var(--accent-color);
-            margin-top: 20px;
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        .github-text:hover {
+            border-color: var(--accent-color);
+            background: rgba(246, 76, 114, 0.05);
+        }
+        .github-text a {
+            color: inherit;
+            text-decoration: none;
+            position: relative;
+        }
+        .github-text a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .github-text a:hover::after {
+            transform: scaleX(1);
+        }
+        .contact-methods a {
+            font-size: 1.5em; /* Увеличиваем шрифт */
+            font-weight: bold; /* Делаем шрифт жирным */
+            color: var(--primary-color); /* Цвет текста */
+            display: flex; /* Для выравнивания иконки и текста по горизонтали */
+            align-items: center; /* Центрируем иконку и текст по вертикали */
+            text-decoration: none; /* Убираем подчеркивание */
+            margin: 10px 0; /* Добавляем отступы */
+            transition: all 0.3s ease; /* Плавный переход */
         }
 
+        .contact-methods a:hover {
+            color: var(--accent-color); /* Цвет текста при наведении */
+        }
 
-        footer {
-            background-color: var(--background-color);
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
+        .contact-methods .contact-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px; /* Отступ между иконкой и текстом */
+            transition: transform 0.3s ease; /* Плавное увеличение иконки */
+        }
+
+        .contact-methods a:hover .contact-icon {
+            transform: scale(1.1); /* Увеличиваем иконку при наведении */
         }
         nav {
+            max-width: 800px;
+            margin: 20px auto;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 20px;
-            background-color: var(--primary-color);
+            gap: 30px;
             padding: 15px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            backdrop-filter: blur(8px);
         }
         nav a {
             color: var(--header-text-color);
-            font-weight: bold;
             text-decoration: none;
-            font-size: 18px;
-            padding: 10px 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
         }
         nav a:hover {
-            color: var(--hover-effect-color);
+            background: var(--hover-effect-color);
+            color: white;
+        }
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        footer p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        footer u {
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 2px;
         }
 
-        .language-selector {
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer; }
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+                grid-template-columns: 1fr;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                margin: 20px;
+                border-radius: 15px;
+            }
+            .language-selector {
+                position: static;
+                margin-bottom: 20px;
+            }
+            .button {
+                position: static;
+                display: block;
+                margin: 20px auto;
+                width: fit-content;
+            }
+        }
     </style>
     <script>
         function changeLanguage(lang) {
@@ -155,12 +332,14 @@
 
         const translations = {
             "uk": {
+                "head": "Мої факти",
                 "whoAmI": "Хто я?",
                 "interests": "Чим я цікавлюсь?",
                 "contact": "Як зі мною зв'язатися?",
                 "profile": "Ваш профіль"
             },
             "ru": {
+                "head": "Мои факты",
                 "whoAmI": "Кто я?",
                 "interests": "Чем я интересуюсь?",
                 "contact": "Как со мной связаться?",
@@ -174,26 +353,25 @@
     <div class="language-selector">
         <span onclick="changeLanguage('uk')">Укр</span> | <span onclick="changeLanguage('ru')">Рус</span>
     </div>
-    <h1>Мої факти</h1>
+    <h1 href="#head" data-lang="head">Мої факти</h1>
+    <nav>
+        <a href="#whoAmI" data-lang="whoAmI">Хто я?</a>
+        <a href="#interests" data-lang="interests">Чим я цікавлюсь?</a>
+        <a href="#contact" data-lang="contact">Як зі мною зв'язатися?</a>
+    </nav>
 </header>
-
-<nav>
-    <a href="#whoAmI"> Хто я? </a>
-    <a href="#interests">Чим я цікавлюсь? </a>
-    <a href="#contact">Як зі мною зв'язатися?</a>
-</nav>
 
 <main>
     <section id="whoAmI" class="card">
-        <h2>Хто я?</h2>
+        <h2 data-lang="whoAmI">Хто я?</h2>
         <p class="who-text">Привіт! Мене звати <strong>Никита</strong>, і я захоплююся веб-дизайном та UX/UI.</p>
-        <p class="who-text">Я люблю створювати красиві інтерфейси та працювати з користувацьким досвідом. Моя мета — створювати унікальні, зручні та естетично привабливі веб-рішення, які відповідають потребам користувачів. Я глибоко занурююся в дослідження, аналізую поведінку користувачів і шукаю найкращі варіанти взаємодії. Крім веб-дизайну, я також цікавлюся програмуванням, новітніми трендами в IT і штучним інтелектом. У вільний час я вдосконалюю свої навички, експериментую з новими технологіями та веду блог про UX/UI-дизайн. Моє кредо — ніколи не зупинятися на досягнутому і завжди рухатися вперед!</p>
+        <p class="who-text">Я люблю створювати красиві інтерфейси та працювати з користувацьким досвідом. Моя мета — створювати унікальні, зручні та естетично привабливі веб-рішення, які відповідають потребам користувачів.</p>
         <img width="960" height="400" src="../Icons/photo.jpg" alt="Моє фото">
     </section>
 
     <section id="interests" class="card">
-        <h2>Чим я цікавлюсь?</h2>
-        <p class="who-text">Я захоплююся сучасними технологіями та креативними підходами до дизайну. Мені подобається досліджувати нові тренди у веб-дизайні, експериментувати з колірними палітрами та типографією, а також створювати унікальні анімаційні ефекти для покращення користувацького досвіду. Окрім цього, я активно вивчаю front-end розробку, заглиблюючись у роботу з JavaScript та фреймворками на кшталт React та Vue.js. Моє завдання – зробити інтернет більш зручним, функціональним та візуально привабливим.</p>
+        <h2 data-lang="interests">Чим я цікавлюсь?</h2>
+        <p class="who-text">Я захоплююся сучасними технологіями та креативними підходами до дизайну. Мені подобається досліджувати нові тренди у веб-дизайні.</p>
         <div class="interests-list">
             <div class="interests-item">Веб-дизайн та UI/UX</div>
             <div class="interests-item">Програмування на JavaScript</div>
@@ -203,12 +381,38 @@
     </section>
 
     <section id="contact" class="card">
-        <h2>Як зі мною зв'язатися?</h2>
-        <p class="github-text">Ви можете знайти мене на <a href="https://github.com/rodzbtw/NikitaKN24/tree/TestSite">GitHub</a>.</p>
+        <h2 data-lang="contact">Як зі мною зв'язатися?</h2>
+        <div class="contact-methods">
+            <p>Ось кілька способів зв'язатися зі мною:</p>
+            <ul>
+                <li>
+                    <a href="mailto:your-email@example.com">
+                        <i class="fas fa-envelope contact-icon"></i> Email
+                    </a>
+                </li>
+                <li>
+                    <a href="https://t.me/your-telegram" target="_blank">
+                        <i class="fab fa-telegram-plane contact-icon"></i> Telegram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/your-profile" target="_blank">
+                        <i class="fab fa-linkedin contact-icon"></i> LinkedIn
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/rodzbtw/TESTSITE" target="_blank">
+                        <i class="fab fa-github contact-icon"></i> GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
     </section>
+
 </main>
 
-<a href="login.html" class="button">Ваш профіль</a>
+<a href="login.html" class="button" data-lang="profile">Ваш профіль</a>
+
 <footer>
     <p>&copy; 2025 <u>Права захищені</u></p>
 </footer>
