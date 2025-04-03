@@ -4,75 +4,362 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TESTSITE - Авторизація</title>
-    <link rel="stylesheet" href="../Styles/styles.css">
+    <link rel="icon" type="image/png" href="../Icons/login.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: rgba(0, 137, 176, 0.9);
+            --secondary-color: #553D67;
+            --accent-color: rgba(0, 183, 255, 0.8);
+            --background-color: #EAE8FF;
+            --text-color: #242582;
+            --card-bg: #FFFFFF;
+            --hover-effect-color: rgba(82, 172, 211, 0.55);
+        }
+
+        @keyframes circleAnimation {
+            0% {
+                clip-path: circle(0% at 50% 50%);
+                transform: scale(0.8);
+            }
+            50% {
+                clip-path: circle(120% at 50% 50%);
+                transform: scale(1.2);
+            }
+            100% {
+                clip-path: circle(100% at 50% 50%);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(47, 47, 162, 0.8), rgba(0, 137, 176, 0.7));
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(47, 47, 162, 0.8), rgba(0, 137, 176, 0.7)),
+            url('https://images.unsplash.com/photo-1557683311-eac922347aa1?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: circleAnimation 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.5s ease-out 0.3s backwards;
+        }
+
+        .social-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-btn img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .facebook { color: #1877F2; }
+        .apple { color: #000000; }
+        .google { color: #DB4437; }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        p {
+            text-align: center;
+            color: var(--text-color);
+            margin: 15px 0;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .toggle-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-buttons button:hover {
+            background: var(--hover-effect-color);
+            transform: translateY(-2px);
+        }
+
+        .form-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 183, 255, 0.2);
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+
+        .login-btn, .register-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            background: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .login-btn:hover, .register-btn:hover {
+            background: var(--hover-effect-color);
+            transform: translateY(-2px);
+        }
+
+        .password-hints {
+            background: rgba(0, 183, 255, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+
+        .password-hints p {
+            margin: 0 0 10px 0;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .password-hints ul {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text-color);
+        }
+
+        .password-hints li {
+            margin: 5px 0;
+        }
+
+        .timer {
+            color: var(--accent-color);
+            font-weight: 600;
+            text-align: center;
+            margin: 15px 0;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .back-button {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='index.html'">Назад на головну</button>
+<div class="background-animation"></div>
 
-    <div class="container">
-        <button class="social-btn facebook">
-            <img src="https://img.icons8.com/?size=100&id=uLWV5A9vXIPu&format=png&color=000000" alt="Facebook Icon">
-            Продовжити через Facebook
-        </button>
-        <button class="social-btn apple">
-            <img src="https://img.icons8.com/?size=100&id=890&format=png&color=000000" alt="Apple Icon">
-            Продовжити через Apple
-        </button>
-        <button class="social-btn google">
-            <img src="https://img.icons8.com/?size=100&id=V5cGWnc9R4xj&format=png&color=000000" alt="Google Icon">
-            Продовжити через Google
-        </button>
-        <hr>
-        <p>чи</p>
-        <div class="toggle-buttons">
-            <button id="login-btn" onclick="toggleForm('login-form')">Увійти</button>
-            <button id="register-btn" onclick="toggleForm('register-form')">Зареєструватися</button>
-        </div>
+<button class="back-button" onclick="window.location.href='index.html'">Назад на головну</button>
 
-        <div id="login-form" class="form-section">
-            <form>
-                <label>
-                <input type="text" placeholder="Електронна пошта чи телефон" required>
-                <input type="password" placeholder="Пароль" required>
-                </label>
-                <a href="#" class="forgot-password" onclick="toggleForm('forgot-password-form')">Забули пароль?</a>
-                <button type="submit" class="login-btn">Увійти</button>
-            </form>
-        </div>
-
-        <div id="register-form" class="form-section">
-            <form>
-                <label>
-                <input type="text" placeholder="Ім'я" required>
-                <input type="email" placeholder="Електронна пошта" required>
-                <input type="password" placeholder="Пароль" required>
-                </label>
-                <div class="password-hints">
-                    <p>Ваш пароль має містити:</p>
-                    <ul>
-                        <li>9 або більше символів</li>
-                        <li>Велику літеру</li>
-                        <li>Малу літеру</li>
-                        <li>Мінімум одну цифру</li>
-                    </ul>
-                </div>
-                <button type="submit" class="register-btn">Зареєструватися</button>
-            </form>
-        </div>
-
-        <div id="forgot-password-form" class="form-section">
-            <h2>Забули пароль?</h2>
-            <p>Введіть вашу електронну пошту або номер телефону, щоб отримати код відновлення.</p>
-            <form>
-                <label>
-                <input type="text" placeholder="Електронна пошта чи телефон" required>
-                </label>
-                <button type="button" id="send-code-btn" class="login-btn" onclick="startTimer()">Надіслати код</button>
-            </form>
-            <p id="timer" class="timer">Час залишився: 60 секунд</p>
-            <a href="#" class="forgot-password" onclick="toggleForm('login-form')">Повернутися до входу</a>
-        </div>
+<div class="container">
+    <button class="social-btn facebook">
+        <img src="https://img.icons8.com/?size=100&id=uLWV5A9vXIPu&format=png&color=000000" alt="Facebook Icon">
+        Продовжити через Facebook
+    </button>
+    <button class="social-btn apple">
+        <img src="https://img.icons8.com/?size=100&id=890&format=png&color=000000" alt="Apple Icon">
+        Продовжити через Apple
+    </button>
+    <button class="social-btn google">
+        <img src="https://img.icons8.com/?size=100&id=V5cGWnc9R4xj&format=png&color=000000" alt="Google Icon">
+        Продовжити через Google
+    </button>
+    <hr>
+    <p>чи</p>
+    <div class="toggle-buttons">
+        <button id="login-btn" onclick="toggleForm('login-form')">Увійти</button>
+        <button id="register-btn" onclick="toggleForm('register-form')">Зареєструватися</button>
     </div>
-    <script src="../TS_and_JS/script.js"></script>
+
+    <div id="login-form" class="form-section">
+        <form>
+            <input type="text" placeholder="Електронна пошта чи телефон" required>
+            <input type="password" placeholder="Пароль" required>
+            <a href="#" class="forgot-password" onclick="toggleForm('forgot-password-form')">Забули пароль?</a>
+            <button type="submit" class="login-btn">Увійти</button>
+        </form>
+    </div>
+
+    <div id="register-form" class="form-section">
+        <form>
+            <input type="text" placeholder="Ім'я" required>
+            <input type="email" placeholder="Електронна пошта" required>
+            <input type="password" placeholder="Пароль" required>
+            <div class="password-hints">
+                <p>Ваш пароль має містити:</p>
+                <ul>
+                    <li>9 або більше символів</li>
+                    <li>Велику літеру</li>
+                    <li>Малу літеру</li>
+                    <li>Мінімум одну цифру</li>
+                </ul>
+            </div>
+            <button type="submit" class="register-btn">Зареєструватися</button>
+        </form>
+    </div>
+
+    <div id="forgot-password-form" class="form-section">
+        <h2>Забули пароль?</h2>
+        <p>Введіть вашу електронну пошту або номер телефону, щоб отримати код відновлення.</p>
+        <form>
+            <input type="text" placeholder="Електронна пошта чи телефон" required>
+            <button type="button" id="send-code-btn" class="login-btn" onclick="startTimer()">Надіслати код</button>
+        </form>
+        <p id="timer" class="timer">Час залишився: 60 секунд</p>
+        <a href="#" class="forgot-password" onclick="toggleForm('login-form')">Повернутися до входу</a>
+    </div>
+</div>
+
+<script>
+    function toggleForm(formId) {
+        document.querySelectorAll('.form-section').forEach(form => {
+            form.style.display = 'none';
+        });
+        document.getElementById(formId).style.display = 'block';
+    }
+
+    function startTimer() {
+        let timeLeft = 60;
+        const timerElement = document.getElementById('timer');
+        timerElement.style.display = 'block';
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = `Час залишився: ${timeLeft} секунд`;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerElement.style.display = 'none';
+            }
+        }, 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleForm('login-form');
+    });
+</script>
 </body>
 </html>
