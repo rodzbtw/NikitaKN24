@@ -17,6 +17,12 @@
             --hover-effect-color: rgba(82, 172, 211, 0.55);
         }
 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         @keyframes circleAnimation {
             0% {
                 clip-path: circle(0% at 50% 50%);
@@ -43,6 +49,12 @@
             }
         }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
@@ -53,7 +65,15 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, rgba(47, 47, 162, 0.8), rgba(0, 137, 176, 0.7));
+            background: linear-gradient(
+                    -45deg,
+                    rgba(47, 47, 162, 0.8),
+                    rgba(0, 137, 176, 0.7),
+                    rgba(0, 183, 255, 0.6),
+                    rgba(82, 172, 211, 0.7)
+            );
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
         .background-animation {
@@ -85,6 +105,18 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
             animation: fadeIn 0.5s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button i {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-5px);
         }
 
         .back-button:hover {
@@ -96,11 +128,25 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1),
+            0 0 100px rgba(255, 255, 255, 0.2);
             width: 100%;
             max-width: 500px;
             backdrop-filter: blur(10px);
             animation: fadeIn 0.5s ease-out 0.3s backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .social-btn {
@@ -119,16 +165,43 @@
             transition: all 0.3s ease;
             background: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent
+            );
+            transition: 0.5s;
+        }
+
+        .social-btn:hover::before {
+            left: 100%;
         }
 
         .social-btn img {
             width: 24px;
             height: 24px;
+            transition: transform 0.3s ease;
         }
 
         .social-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-btn:hover img {
+            transform: scale(1.1);
         }
 
         .facebook { color: #1877F2; }
@@ -139,12 +212,31 @@
             border: none;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
             margin: 20px 0;
+            position: relative;
+        }
+
+        hr::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .container:hover hr::before {
+            width: 100%;
+            left: 0;
         }
 
         p {
             text-align: center;
             color: var(--text-color);
             margin: 15px 0;
+            font-size: 1.1em;
+            font-weight: 500;
         }
 
         .toggle-buttons {
@@ -163,6 +255,28 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toggle-buttons button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent
+            );
+            transition: 0.5s;
+        }
+
+        .toggle-buttons button:hover::before {
+            left: 100%;
         }
 
         .toggle-buttons button:hover {
@@ -173,6 +287,7 @@
         .form-section {
             display: none;
             margin-top: 20px;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .form-section.active {
@@ -187,12 +302,14 @@
             border-radius: 25px;
             font-size: 16px;
             transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         input:focus {
             border-color: var(--accent-color);
             outline: none;
             box-shadow: 0 0 0 3px rgba(0, 183, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .forgot-password {
@@ -202,6 +319,12 @@
             text-decoration: none;
             margin: 10px 0;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
         }
 
         .login-btn, .register-btn {
@@ -209,18 +332,41 @@
             padding: 15px;
             border: none;
             border-radius: 25px;
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
             font-weight: bold;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before, .register-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent
+            );
+            transition: 0.5s;
+        }
+
+        .login-btn:hover::before, .register-btn:hover::before {
+            left: 100%;
         }
 
         .login-btn:hover, .register-btn:hover {
             background: var(--hover-effect-color);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .password-hints {
@@ -228,6 +374,12 @@
             padding: 15px;
             border-radius: 15px;
             margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .password-hints:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .password-hints p {
@@ -244,6 +396,20 @@
 
         .password-hints li {
             margin: 5px 0;
+            position: relative;
+        }
+
+        .password-hints li::before {
+            content: '✓';
+            position: absolute;
+            left: -20px;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .password-hints li.valid::before {
+            opacity: 1;
         }
 
         .timer {
@@ -252,6 +418,7 @@
             text-align: center;
             margin: 15px 0;
             display: none;
+            animation: pulse 2s infinite;
         }
 
         @media (max-width: 768px) {
@@ -272,7 +439,10 @@
 <body>
 <div class="background-animation"></div>
 
-<button class="back-button" onclick="window.location.href='index.html'">Назад на головну</button>
+<button class="back-button" onclick="window.location.href='index.html'">
+    <i class="fas fa-arrow-left"></i>
+    Назад на головну
+</button>
 
 <div class="container">
     <button class="social-btn facebook">
@@ -290,16 +460,24 @@
     <hr>
     <p>чи</p>
     <div class="toggle-buttons">
-        <button id="login-btn" onclick="toggleForm('login-form')">Увійти</button>
-        <button id="register-btn" onclick="toggleForm('register-form')">Зареєструватися</button>
+        <button id="login-btn" onclick="toggleForm('login-form')">
+            <i class="fas fa-sign-in-alt"></i> Увійти
+        </button>
+        <button id="register-btn" onclick="toggleForm('register-form')">
+            <i class="fas fa-user-plus"></i> Зареєструватися
+        </button>
     </div>
 
     <div id="login-form" class="form-section">
         <form>
             <input type="text" placeholder="Електронна пошта чи телефон" required>
             <input type="password" placeholder="Пароль" required>
-            <a href="#" class="forgot-password" onclick="toggleForm('forgot-password-form')">Забули пароль?</a>
-            <button type="submit" class="login-btn">Увійти</button>
+            <a href="#" class="forgot-password" onclick="toggleForm('forgot-password-form')">
+                <i class="fas fa-key"></i> Забули пароль?
+            </a>
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Увійти
+            </button>
         </form>
     </div>
 
@@ -317,7 +495,9 @@
                     <li>Мінімум одну цифру</li>
                 </ul>
             </div>
-            <button type="submit" class="register-btn">Зареєструватися</button>
+            <button type="submit" class="register-btn">
+                <i class="fas fa-user-plus"></i> Зареєструватися
+            </button>
         </form>
     </div>
 
@@ -326,10 +506,14 @@
         <p>Введіть вашу електронну пошту або номер телефону, щоб отримати код відновлення.</p>
         <form>
             <input type="text" placeholder="Електронна пошта чи телефон" required>
-            <button type="button" id="send-code-btn" class="login-btn" onclick="startTimer()">Надіслати код</button>
+            <button type="button" id="send-code-btn" class="login-btn" onclick="startTimer()">
+                <i class="fas fa-paper-plane"></i> Надіслати код
+            </button>
         </form>
         <p id="timer" class="timer">Час залишився: 60 секунд</p>
-        <a href="#" class="forgot-password" onclick="toggleForm('login-form')">Повернутися до входу</a>
+        <a href="#" class="forgot-password" onclick="toggleForm('login-form')">
+            <i class="fas fa-arrow-left"></i> Повернутися до входу
+        </a>
     </div>
 </div>
 
