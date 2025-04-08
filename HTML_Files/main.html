@@ -109,33 +109,40 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
             background: rgba(255, 255, 255, 0.15);
-            padding: 10px 20px;
             border-radius: 30px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.5s ease-out;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            gap: 5px;
+            z-index: 100;
         }
 
-        .language-selector:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .language-selector span {
-            padding: 5px 10px;
-            transition: all 0.3s ease;
-            border-radius: 15px;
-        }
-
-        .language-selector span:hover {
-            background: var(--accent-color);
+        .lang-btn {
+            background: none;
+            border: none;
             color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .lang-btn.active {
+            background: var(--accent-color);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-separator {
+            color: rgba(255, 255, 255, 0.5);
+            padding: 0 5px;
         }
 
         nav {
@@ -515,7 +522,9 @@
 <body>
 <header>
     <div class="language-selector">
-        <span onclick="changeLanguage('uk')">Укр</span> | <span onclick="changeLanguage('ru')">Рус</span>
+        <button class="lang-btn active" onclick="changeLanguage('uk')" id="ukBtn">Укр</button>
+        <span class="lang-separator">|</span>
+        <button class="lang-btn" onclick="changeLanguage('ru')" id="ruBtn">Рус</button>
     </div>
     <h1 data-lang="head">Мої факти</h1>
     <nav>
@@ -530,7 +539,7 @@
         <h2 data-lang="whoAmI"><i class="fas fa-user"></i> Хто я?</h2>
         <p class="who-text">Привіт! Мене звати <strong>Никита</strong>, і я захоплююся веб-дизайном та UX/UI.</p>
         <p class="who-text">Я люблю створювати красиві інтерфейси та працювати з користувацьким досвідом. Моя мета — створювати унікальні, зручні та естетично привабливі веб-рішення, які відповідають потребам користувачів.</p>
-        <img width="960" height="400" src="../Icons/photo.jpg" alt="Робоче місце розробника">
+        <img width="960" height="400" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1920&q=80" alt="Робоче місце розробника">
     </section>
 
     <section id="interests" class="card">
@@ -584,10 +593,25 @@
 
 <script>
     function changeLanguage(lang) {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        document.getElementById(lang + 'Btn').classList.add('active');
+
         const elements = document.querySelectorAll("[data-lang]");
         elements.forEach(el => {
-            el.innerText = translations[lang][el.dataset.lang];
+            const key = el.dataset.lang;
+            if (translations[lang] && translations[lang][key]) {
+                if (el.tagName === 'A' && el.querySelector('i')) {
+                    const icon = el.querySelector('i').outerHTML;
+                    el.innerHTML = icon + ' ' + translations[lang][key];
+                } else {
+                    el.textContent = translations[lang][key];
+                }
+            }
         });
+
         document.documentElement.lang = lang;
     }
 
@@ -607,8 +631,11 @@
             "profile": "Ваш профиль"
         }
     };
-</script>
-<script src="../TS_and_JS/main.js"></script>
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentLang = document.documentElement.lang;
+        changeLanguage(currentLang);
+    });
+</script>
 </body>
 </html>
